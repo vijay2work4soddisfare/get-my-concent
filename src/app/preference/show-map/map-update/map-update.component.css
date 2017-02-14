@@ -1,0 +1,7 @@
+.sebm-google-map-container {
+     height: 90%;
+	 height: 300px;
+}
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}

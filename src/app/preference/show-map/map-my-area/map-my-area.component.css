@@ -1,0 +1,70 @@
+.sebm-google-map-container {
+     height: 300px;
+   }
+.md-dialog-container{
+	padding: 0px;
+}
+.menu{
+	float: right;
+	right: 0px;
+	bottom: 0px;
+}
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
+md-card-actions{
+	margin:auto;
+	margin-bottom: 0px;
+	padding: 0px;
+	width: 98%;
+}
+.menuButton{
+	z-index: 13;
+}
+.brdr{
+	padding-left: 10px;
+	border-radius: 15px 0px 0px 15px;
+	width: 125px;
+}
+@media(max-width: 385px){
+	.right{float: none;}
+	.buttonGrp{
+		z-index: 14;
+		position: absolute;
+		bottom: 0px;
+		float: right;
+		transform:translate(-90px,-109px);
+		height:10px;
+	}
+}
+.btnnn2{
+	/*margin-right: 20%;*/
+	transform:translate(0px,-77px);
+}
+.btnnn1{
+	/*margin-right: 20%;*/
+	transform:translate(0px,-43px);
+}
+.btnnn{
+	/*margin-right: 20%;*/
+	transform:translate(3px,35px);
+}
+.btnnn3{
+	/*margin-right: 20%;*/
+	transform:translate(0px,-121px);
+}
+@media(min-width: 386px){
+	.right{float: right;}
+	.buttonGrp{
+		z-index: 14;
+		position: absolute;
+		bottom: 0px;
+		float: right;
+		transform:translate(-81px,-109px);
+		height:10px;
+	}
+}
+.actButton{
+	z-index: 20;
+	position: fixed;
+}

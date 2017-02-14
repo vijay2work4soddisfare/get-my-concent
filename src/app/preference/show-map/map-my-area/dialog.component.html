@@ -1,0 +1,8 @@
+<md-card-header style="margin-left: 5px;margin-right: 5px;margin-top: 5px;margin-bottom: 5px;height: 110%;overflow-y: hidden;">
+	  <img src="{{sUserD.pic}}" md-card-avatar style="padding: 10px;border-style: solid;border-width: 1px;border-radius: 10px;border-color: black;float: left;" >
+      <md-card-title md-dialog-title>{{sUserD.name}}</md-card-title>
+    </md-card-header>
+	  <md-dialog-actions align="end">
+	    <button (click)="dialogRef.close(sUserD.uid)" md-raised-button color="primary">Add as a partner</button>
+	    <button md-raised-button color="accent" md-dialog-close>Close</button>
+	  </md-dialog-actions>

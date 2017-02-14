@@ -1,0 +1,50 @@
+<sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+	<sebm-google-map-marker [latitude]="lat" [longitude]="lng" *ngIf="!visible" [iconUrl]="'https://firebasestorage.googleapis.com/v0/b/myconsent-f5d0d.appspot.com/o/imageedit_2_6225176814.png?alt=media&token=c9062cb9-a5e1-464d-8d07-ac6774369ea3'">
+		<sebm-google-map-info-window [disableAutoPan]="false">
+	        <md-card-header style="margin-left: 5px;margin-right: 5px;margin-top: 5px;margin-bottom: 5px;height: 110%;overflow-y: hidden;">
+			  <img src="{{pic}}" md-card-avatar style="padding: 10px;border-style: solid;border-width: 1px;border-radius: 10px;border-color: black;float: left;" >
+	          <md-card-title><h1>You</h1></md-card-title>
+	        </md-card-header>
+    	</sebm-google-map-info-window>
+    </sebm-google-map-marker>
+	<sebm-google-map-marker [latitude]="lat" [longitude]="lng" *ngIf="visible" [iconUrl]="'https://firebasestorage.googleapis.com/v0/b/myconsent-f5d0d.appspot.com/o/Untitled-1.png?alt=media&token=59876391-ab4d-4e17-90f9-1769f9f27b5f'">
+		<sebm-google-map-info-window [disableAutoPan]="false">
+	        <md-card-header style="margin-left: 5px;margin-right: 5px;margin-top: 5px;margin-bottom: 5px;height: 110%;overflow-y: hidden;">
+			  <img src="{{pic}}" md-card-avatar style="padding: 10px;border-style: solid;border-width: 1px;border-radius: 10px;border-color: black;float: left;" >
+	          <md-card-title><h1>You</h1></md-card-title>
+	        </md-card-header>
+    	</sebm-google-map-info-window>
+    </sebm-google-map-marker>
+	<sebm-google-map-marker *ngFor="let item of othersList" [latitude]="item.latitude" [longitude]="item.longitude">
+		<sebm-google-map-info-window [disableAutoPan]="false" style="overflow-y: hidden;">
+			<div style="width:100%;overflow-y: hidden;">
+				<img src="{{item.pic}}" style="padding: 10px;border-style: solid;border-width: 1px;border-radius: 10px;border-color: black;float: left;margin-right: 5px;" md-card-avatar />
+				<button md-raised-button color="primary" style="float: right;margin-left: 5px;" (click)="openDialog(item)">View</button>
+			</div>
+	        <md-card-title-group style="margin-left: 5px;margin-right: 5px;float: left;overflow-y: hidden;">
+	          <md-card-title>{{item.name}} </md-card-title>
+	        </md-card-title-group>
+    	</sebm-google-map-info-window>
+	</sebm-google-map-marker>
+</sebm-google-map>
+<md-card-actions>
+	
+<span class="example-fill-remaining-space"></span>
+<span class="menu">
+	<button md-icon-button (click)="showMenu=!showMenu" color="primary" class="menuButton"><md-icon>menu</md-icon></button>
+	<span class="buttonGrp" *ngIf="!showMenu">
+		<button md-raised-button (click)="showOthers();showMenu=true;" color="accent" class="btnnn brdr">Show Others
+			<md-icon>person_pin_circle</md-icon>
+		</button>
+		<button (click)="toogleVisibleDiag(visible)" md-raised-button color="accent" class="btnnn1 brdr">Visibility
+			<md-icon>visibility</md-icon>
+		</button>
+		<button (click)="send()" md-raised-button color="accent" class="btnnn3 brdr" *ngIf="visible">Update
+			<md-icon>my_location</md-icon>
+		</button>
+		<!--button (click)="toogleVisible(visible)" *ngIf="visible" md-raised-button color="warn" class="btnnn2 brdr">Invisible
+			<md-icon>visibility_off</md-icon>
+		</button-->
+	</span>
+</span>
+</md-card-actions>

@@ -1,0 +1,8 @@
+<div class="test">
+<md-card *ngIf="correct">
+	<app-map-my-area *ngIf="gotPosition" [position]="position" (onClose)="send($event)" (getUid)="emtMobileNo($event)"></app-map-my-area>
+</md-card>
+<md-card *ngIf="!correct">
+	<app-map-update *ngIf="gotPosition" [position]="position" (onClose)="updatePos($event)"></app-map-update>
+</md-card>
+</div>

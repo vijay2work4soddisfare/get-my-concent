@@ -1,0 +1,8 @@
+.showRow{
+	display: flex;
+	flex-direction: row;
+}
+[md-raised-button]{
+	margin:6px;
+	width: 110px;
+}

@@ -1,0 +1,20 @@
+<div>
+    <div>
+      <app-show-map></app-show-map>
+    </div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+    <div *ngFor="let question of questions" class="form-row">
+      <app-form-question [question]="question" [form]="form"></app-form-question>
+    </div>
+
+
+    <div class="form-row">
+      <button md-raised-button type="submit" [disabled]="!form.valid">Save</button>
+    </div>
+  </form>
+
+  <div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br>{{payLoad}}
+  </div>
+</div>

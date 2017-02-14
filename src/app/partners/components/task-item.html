@@ -1,0 +1,63 @@
+<div class="showRow"  tabindex="1">
+
+    <!--button md-icon-button
+      *ngIf="editing"
+      (click)="toggleStatus()"
+      aria-label="Mark task as completed"
+      class="task-item__button"
+      type="button">
+      <md-icon>done</md-icon>
+    </button!-->
+
+  <div>
+    <div
+      *ngIf="!editing"
+      class="task-item__title"
+      tabindex="1">
+      <button md-raised-button color="accent" (click)="openDialog(task)">
+        {{ task.title }}
+      </button>
+    </div>
+
+    <!--form *ngIf="editing" (ngSubmit)="saveTitle()" novalidate>
+      
+      <md-input-container>
+      <input 
+        md-input
+        [(ngModel)]="title"
+        value="{{title}}"
+        (blur)="stopEditing()"
+        (keyup.escape)="stopEditing()"
+        name="title"
+        type="text" 
+        autoFocus
+        >
+      </md-input-container>
+    </form-->
+  </div>
+
+    <!--button md-icon-button
+      *ngIf="editing"
+      (click)="stopEditing()"
+      aria-label="Cancel editing"
+      class="task-item__button"
+      type="button">
+      <md-icon>close</md-icon>
+    </button>
+    <button md-icon-button
+      *ngIf="editing"
+      (click)="editTitle();"
+      aria-label="Edit task title"
+      class="task-item__button"
+      type="button">
+      <md-icon>edit</md-icon>
+    </button>
+    <button md-icon-button
+      *ngIf="editing"
+      (click)="remove.emit()"
+      aria-label="Delete task"
+      class="task-item__button"
+      type="button">
+      <md-icon>delete</md-icon>
+    </button>
+</div-->

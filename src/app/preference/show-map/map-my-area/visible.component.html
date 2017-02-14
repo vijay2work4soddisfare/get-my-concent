@@ -1,0 +1,13 @@
+  <md-card-title >Share your location ?</md-card-title>
+  <md-card-subtitle md-dialog-title><h5 style="margin: 0px 5px;">"Yes" other users can see and add you as a partner.</h5></md-card-subtitle>
+  <md-card-subtitle md-dialog-title><h5 style="margin: 0px 5px;">"No" other users cannot see or add you as a partner.</h5></md-card-subtitle>
+<md-dialog-actions align="center">
+  <div style="display:flex;margin:auto;width: 100px;">
+  	<span style="margin:3.3px;font-weight: bolder;">No</span>
+  	<md-slide-toggle style="margin:0px;" (change)="toog($event)" color="primary" [checked]="visible"></md-slide-toggle>
+  	<span style="margin:3.3px;font-weight: bolder;">Yes</span></div>
+</md-dialog-actions>
+  <md-dialog-actions align="end">
+    <button md-raised-button color="primary" (click)="dialogVRef.close(visible)">Save</button>
+    <button md-raised-button color="warn" md-dialog-close>Cancel</button>
+  </md-dialog-actions>

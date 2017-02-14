@@ -1,0 +1,13 @@
+<md-sidenav-container fullscreen>
+	<md-toolbar color="primary">
+		<span>Get My Consent</span>
+		<span class="emptySpace"></span>
+		<span>
+			<button md-raised-button color="accent" (click)="logout()" >Logout</button>
+		</span>
+	</md-toolbar>
+    <md-card>
+      <md-card-title>Preferences</md-card-title>
+      <app-form [questions]="questions"></app-form>
+    </md-card>
+</md-sidenav-container>
