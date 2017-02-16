@@ -72,65 +72,79 @@ export class QuestionService {
       }),
 
       new CheckboxQuestion({
-        key:'condition1',
+        key:'condition',
         label:'If the partner is unconsious or asleep then there is no consent to sex',
         type:'checkbox',
         required: true,
         gender:'Male',
+        value:(this.data.condition)?true:'',
+        checked:(this.data.condition)?true:false,
         order:6
       }),
 
       new CheckboxQuestion({
-        key:'condition2',
+        key:'condition',
         label:'After consenting to sex and the partner falls asleep / unconsious due to medicine / alcohol then there is no consent to sex ',
         type:'checkbox',
         gender:'Male',
+        value:(this.data.condition)?true:'',
+        checked:(this.data.condition)?true:false,
         required: true,
         order:7
-      }),,
+      }),
 
       new CheckboxQuestion({
-        key:'condition3',
+        key:'condition',
         label:'After the session there is no more consent to sex',
         type:'checkbox',
         gender:'Male',
+        value:(this.data.condition)?true:'',
+        checked:(this.data.condition)?true:false,
         required: true,
         order:8
       }),
 
       new CheckboxQuestion({
-        key:'condition4',
+        key:'condition',
         label:'After the consenting to sex the partner can revoke the consent to sex',
         type:'checkbox',
         gender:'Male',
+        value:(this.data.condition)?true:'',
+        checked:(this.data.condition)?true:false,
         required: true,
         order:9
       }),
 
       new CheckboxQuestion({
-        key:'condition5',
+        key:'condition',
         label:'Sex without consent with your partner is considerd crime in first world contries. You will be labelled sexual offender for rest of your life.',
         type:'checkbox',
         gender:'Male',
+        value:(this.data.condition)?true:'',
+        checked:(this.data.condition)?true:false,
         required: true,
-        order:9
+        order:10
       }),
 
       new CheckboxQuestion({
-        key:'condition1',
+        key:'condition',
         label:'UnNatural sex is criminal as per Section 377 of the Indian Penal Code, 1860 Unnatural Offences',
         type:'checkbox',
         gender:'Female',
+        value:(this.data.condition)?true:'',
         required: true,
-        order:5
+        checked:(this.data.condition)?true:false,
+        order:11
       }),
       new CheckboxQuestion({
-        key:'condition2',
+        key:'condition',
         label:'If You want to withdraw active consent before sleep and if the male is sleeping then you need to wake the partner before withdrawing consent.',
         type:'checkbox',
         gender:'Female',
+        value:(this.data.condition)?true:'',
+        checked:(this.data.condition)?true:false,
         required: true,
-        order:6
+        order:12
       })
     ];
     return questions.sort((a, b) => a.order - b.order);

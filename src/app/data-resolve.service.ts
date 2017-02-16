@@ -19,6 +19,7 @@ export class DataResolveService {
     latitude:0,
     longitude:0,
     afterSession:'',
+    condition:'',
     sessionLocation:''
   };
   // store the URL so we can redirect after logging in
@@ -40,6 +41,7 @@ export class DataResolveService {
         this.userData.mobile=(result.mobile==undefined)?'':result.mobile;
         this.userData.sleepingTime=(result.sleepingTime==undefined)?'20:00':result.sleepingTime;
         this.userData.gender=(result.gender==undefined)?'':result.gender;
+        this.userData.condition=(result.condition==undefined)?'':result.condition;
         this.userData.latitude=(result.latitude==undefined)?0:result.latitude;
         this.userData.longitude=(result.longitude==undefined)?0:result.longitude;
         this.userData.afterSession=(result.afterSession==undefined)?'':result.afterSession;
@@ -64,6 +66,7 @@ export class DataResolveService {
       sleepingTime:'',
       latitude:0,
       longitude:0,
+      condition:'',
       afterSession:'',
       sessionLocation:''
     };

@@ -15,5 +15,7 @@ export class FormQuestionComponent implements OnInit {
   get isValid() { return this.form.controls[this.question.key].valid || this.form.controls[this.question.key].untouched; }
   ngOnInit() {
   }
-
+  disp(){
+  	console.log(this.form);
+  }
 }

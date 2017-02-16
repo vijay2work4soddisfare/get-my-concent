@@ -11,7 +11,7 @@
       <md-option *ngFor="let opt of question.options" [value]="opt.value" >{{opt.value}}</md-option>
     </md-select>
     <md-card-content align="start" *ngSwitchCase="'checkbox'">
-      <md-checkbox color="primary" [indeterminate]="true" [formControlName]="question.key" value="false" *ngIf="question.gender == form.value.gender" style="margin-left:10%; ">{{question.label}}</md-checkbox>
+      <md-checkbox color="primary" [indeterminate]="!question.checked" [formControlName]="question.key" [checked]="question.checked" [hidden]="question.gender != form.value.gender" style="margin-left:10%; " (change)="disp()">{{question.label}}</md-checkbox>
     </md-card-content>
   </md-card-content> 
 
