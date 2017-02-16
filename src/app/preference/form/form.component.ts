@@ -1,6 +1,7 @@
 import { Component, Input, OnInit }  from '@angular/core';
 import { FormGroup }                 from '@angular/forms';
-
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { ShowMapComponent } from '../show-map/show-map.component';
 import { Router,ActivatedRoute } from '@angular/router';
 import { QuestionBase }              from '../base';
 import { QuestionControlService }    from '../control.service';
@@ -13,12 +14,21 @@ import { DataResolveService }    from '../../data-resolve.service';
   providers: [ QuestionControlService ]
 })
 export class FormComponent implements OnInit {
-
-   @Input() questions: QuestionBase<any>[] = [];
+  dialogRef: MdDialogRef<ShowMapComponent>;
+  @Input() questions: QuestionBase<any>[] = [];
   form: FormGroup;
   payLoad = '';
-  constructor(private qcs: QuestionControlService,private dataService : DataResolveService) {  }
+  constructor(public dialog: MdDialog,private qcs: QuestionControlService,private dataService : DataResolveService) {  }
+  openDialog() {
+    this.dialogRef = this.dialog.open(ShowMapComponent, {
+      disableClose: false
+    });
 
+    this.dialogRef.afterClosed().subscribe(result => {
+      //console.log('result: ' + result);
+      this.dialogRef = null;
+    });
+  }
   ngOnInit() {
     this.form = this.qcs.toFormGroup(this.questions);
   }

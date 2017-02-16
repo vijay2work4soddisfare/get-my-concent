@@ -6,38 +6,45 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Injectable } from '@angular/core';
-import { ITask, Task } from '../models/task';
-import { DataResolveService } from '../../data-resolve.service';
+import { ITask, Task } from './task';
 
 @Injectable()
 export class TaskService {
   visibleTasks$: Observable<ITask[]>;
-  private user$;
+
   private filter$: ReplaySubject<any> = new ReplaySubject(1);
   private filteredTasks$: FirebaseListObservable<ITask[]>;
   private tasks$: FirebaseListObservable<ITask[]>;
-  uid;
   path;
-  constructor(private af: AngularFire,private dataService:DataResolveService,public snackBar:MdSnackBar) {
-    this.path = `/accounts/`+dataService.getUserData().uid;
-
-    this.tasks$ = af.database.list(this.path, {query: {
+  user$;
+  uid;
+  constructor(private af: AngularFire,public snackBar: MdSnackBar) {
+    af.auth.subscribe(user=>{
+      if(user!=undefined) {
+        this.setUid(user.auth.uid);
+      }
+    });
+  }
+  setUid(uid){
+    this.path = `/accounts/`+uid;
+    this.tasks$ = this.af.database.list(this.path, {query: {
       orderByChild: 'status',
       equalTo: 'partner'
     }});
 
-    this.filteredTasks$ = af.database.list(this.path, {query: {
+    this.af.database.object(this.path).subscribe(data=>{
+      this.user$=data;
+    });
+
+    this.filteredTasks$ = this.af.database.list(this.path, {query: {
       orderByChild: 'status',
       equalTo: this.filter$
     }});
 
-    af.database.object(this.path).subscribe(data=>{
-      this.user$=data;
-    });
     this.visibleTasks$ = this.filter$
       .switchMap(filter => filter === null ? this.tasks$ : this.filteredTasks$);
-  }
 
+  }
 
   filterTasks(filter: string): void {
     switch (filter) {
@@ -59,7 +66,7 @@ export class TaskService {
     }
   }
 
-  createTask(title: string,mobile:string){
+  createTask(title: string,mobile:string) {
     var tasks=this.af.database.list(this.path, {query: {//looking inside partner list
       orderByChild: 'mobile',
       equalTo: mobile
@@ -71,7 +78,7 @@ export class TaskService {
             orderByChild: 'mobile',
             equalTo: mobile
         }}).first().subscribe(registeredUsers=>{
-          console.log("registerd user :",registeredUsers);
+          //console.log("registerd user :",registeredUsers);
           if(registeredUsers.length!=0){
             registeredUsers.map(x=>{
               this.af.database.list("accounts/"+x.$key).push(new Task(this.user$.name,this.user$.mobile));
@@ -90,8 +97,7 @@ export class TaskService {
       duration: 3000,
     });
   }
-
-  changeRequest(task:ITask,change:any){
+  changeRequest(task,change:any){
     this.af.database.list("/accounts/",{query:{
       orderByChild:"mobile",
       equalTo:task.mobile
@@ -116,15 +122,17 @@ export class TaskService {
     });
   }
 
-  removeTask(task: ITask){
+  removeTask(task): firebase.Promise<any> {
+    //console.log("task : ",task,);
     this.changeRequest(task,{"status":"partner"});
     return this.tasks$.remove(task.$key);
   }
 
-  updateTask(task: ITask, changes: any){
+  updateTask(task: ITask, changes: any): firebase.Promise<any> {
     if(changes.status!="blocked") {
       this.changeRequest(task,changes);
     }
+    //console.log("changes : ",changes);
     return this.tasks$.update(task.$key, changes);
   }
   selectedUser:ITask;

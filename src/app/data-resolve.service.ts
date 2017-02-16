@@ -71,12 +71,13 @@ export class DataResolveService {
 
   }
   getUserData():any{
-    console.log(this.userData);
+    //console.log(this.userData);
     return this.userData;
   }
   updateProfile(data){
     this.af.database.object("accounts/"+this.userData.uid).update(data).then(result=>{
-      console.log(result);
+      //console.log(result);
+      this.af.database.object("otherUsers/"+this.userData.uid).update({"mobile":data.mobile});
       this.router.navigate(['../','Partners'],{relativeTo:this.r});
     });
   }

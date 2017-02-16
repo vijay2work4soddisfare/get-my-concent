@@ -1,20 +1,14 @@
-<div>
-    <div>
-      <app-show-map></app-show-map>
-    </div>
+<md-card-subtitle align="start" style="margin-left:10%; ">
+  <label>Set your location </label><button style="margin-left:20px;" md-raised-button color="primary" (click)="openDialog()">Location</button>
+  <!--app-show-map></app-show-map-->
+</md-card-subtitle>
+<div style="">
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
-
     <div *ngFor="let question of questions" class="form-row">
       <app-form-question [question]="question" [form]="form"></app-form-question>
     </div>
-
-
     <div class="form-row">
       <button md-raised-button type="submit" [disabled]="!form.valid">Save</button>
     </div>
   </form>
-
-  <div *ngIf="payLoad" class="form-row">
-    <strong>Saved the following values</strong><br>{{payLoad}}
-  </div>
 </div>

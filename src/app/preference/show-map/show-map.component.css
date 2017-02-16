@@ -3,26 +3,16 @@
 	margin:auto;
 	width:80%;
 }
-
-@media ( max-width: 685px){/*for mobile*/
-	.closeBtn{right: 4%;top: 10%;z-index: 10;float: right;position: absolute;}
-	md-card{
-	background-color: #b0becc;
-	margin:auto;
-	margin-top: 10%;
-	margin-bottom: 7%;
-	padding: 0px;
-	padding-bottom: 36px;
-}
-}
-@media ( min-width: 686px){/*for pc*/
-	.closeBtn{right: 8%;top: 12%;z-index: 10;float: right;position: absolute;}
-	md-card{
+md-card{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	background-color: #b0becc;
 	margin:auto;
 	margin-top: 4%;
 	margin-bottom: 7%;
 	padding: 0px;
-	padding-bottom: 36px;
-}
+	padding-bottom: 0px;
+	width:80%;
 }

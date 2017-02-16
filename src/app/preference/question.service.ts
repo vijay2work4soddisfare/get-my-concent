@@ -73,29 +73,66 @@ export class QuestionService {
 
       new CheckboxQuestion({
         key:'condition1',
-        label:'All conditions accepted',
+        label:'If the partner is unconsious or asleep then there is no consent to sex',
         type:'checkbox',
         required: true,
+        gender:'Male',
         order:6
       }),
 
       new CheckboxQuestion({
         key:'condition2',
-        label:'All conditions accepted',
+        label:'After consenting to sex and the partner falls asleep / unconsious due to medicine / alcohol then there is no consent to sex ',
         type:'checkbox',
+        gender:'Male',
         required: true,
-        order:6
-      }),
+        order:7
+      }),,
 
       new CheckboxQuestion({
         key:'condition3',
-        label:'All conditions accepted',
+        label:'After the session there is no more consent to sex',
         type:'checkbox',
+        gender:'Male',
+        required: true,
+        order:8
+      }),
+
+      new CheckboxQuestion({
+        key:'condition4',
+        label:'After the consenting to sex the partner can revoke the consent to sex',
+        type:'checkbox',
+        gender:'Male',
+        required: true,
+        order:9
+      }),
+
+      new CheckboxQuestion({
+        key:'condition5',
+        label:'Sex without consent with your partner is considerd crime in first world contries. You will be labelled sexual offender for rest of your life.',
+        type:'checkbox',
+        gender:'Male',
+        required: true,
+        order:9
+      }),
+
+      new CheckboxQuestion({
+        key:'condition1',
+        label:'UnNatural sex is criminal as per Section 377 of the Indian Penal Code, 1860 Unnatural Offences',
+        type:'checkbox',
+        gender:'Female',
+        required: true,
+        order:5
+      }),
+      new CheckboxQuestion({
+        key:'condition2',
+        label:'If You want to withdraw active consent before sleep and if the male is sleeping then you need to wake the partner before withdrawing consent.',
+        type:'checkbox',
+        gender:'Female',
         required: true,
         order:6
       })
     ];
-    console.log(questions);
     return questions.sort((a, b) => a.order - b.order);
   }
 }

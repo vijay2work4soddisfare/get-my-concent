@@ -1,4 +1,6 @@
 <div class="test">
+<!--img src="https://firebasestorage.googleapis.com/v0/b/myconsent-f5d0d.appspot.com/o/loading.gif?alt=media&token=016f3e54-745e-4ab3-ba4e-60bea7abc865" style="width:80px;height: 80px;"-->
+<md-progress-circle mode="indeterminate" color="{{color}}"></md-progress-circle>
 <md-card *ngIf="correct">
 	<app-map-my-area *ngIf="gotPosition" [position]="position" (onClose)="send($event)" (getUid)="emtMobileNo($event)"></app-map-my-area>
 </md-card>

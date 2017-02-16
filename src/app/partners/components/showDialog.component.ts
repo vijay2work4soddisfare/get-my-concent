@@ -10,7 +10,7 @@ import { TaskService } from '../services/task-service';
     <p>mobile : {{user.mobile}}</p>
     <p>pic :{{user.pic}}</p>
     <p>
-    <button md-raised-button *ngIf="user.status=='partner'"
+    <button md-raised-button *ngIf="user.status=='partner' && gender=='Male'"
       (click)="dialogRef.close('request')"
       aria-label="Delete task"
       class="task-item__button"
@@ -45,14 +45,14 @@ import { TaskService } from '../services/task-service';
       type="button">
       <md-icon>delete</md-icon> Delete
     </button>
-     <!--button md-button (click)="dialogRef.close(true)">Yes</button>
-     <button md-button (click)="dialogRef.close(false)">No</button--> 
      </p>
      `
 })
 export class ShowDialog implements OnInit {
   user:ITask;
+  gender;
   constructor(public dialogRef: MdDialogRef<ShowDialog>,private taskService:TaskService) {
+    this.gender=taskService.getCurrentUser().gender;
     this.user=taskService.getUser();
   }
 

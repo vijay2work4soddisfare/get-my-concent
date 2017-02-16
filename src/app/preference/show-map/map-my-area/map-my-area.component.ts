@@ -1,6 +1,7 @@
 import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import { AngularFire,FirebaseListObservable, FirebaseObjectObservable, } from 'angularfire2';
 import { MdDialogRef,MdDialog } from '@angular/material';
+import { TaskService } from '../../task-service';
 import { SebmGoogleMap, SebmGoogleMapMarker, SebmGoogleMapCircle, SebmGoogleMapInfoWindow } from 'angular2-google-maps/core';
 var sUser;
 var visible;
@@ -31,7 +32,7 @@ export class MapMyAreaComponent{
 	uid;
 	mySavedLocation:FirebaseObjectObservable<any>;
 	toogleVisible(visible){
-		console.log(visible);
+		//console.log(visible);
 		this.mySavedLocation=this.af.database.object("accounts/"+this.uid+"/");
 		  if(!visible) {
 		    this.mySavedLocation.update({"visible":false});
@@ -73,7 +74,6 @@ export class MapMyAreaComponent{
   	visible=visibleVal;
   	this.dialogVRef=this.dialog.open(VisibilityDialog,{disableClose:false});
   	this.dialogVRef.afterClosed().subscribe(result => {
-  		console.log("closed : ",result);
   		if(result!=undefined && result!=null) {
       		this.toogleVisible(result);
       		this.visible=visible;
@@ -90,7 +90,10 @@ export class MapMyAreaComponent{
     });
 
     this.dialogRef.afterClosed().subscribe(result => {
-      this.getUid.emit(result);
+  		//console.log("closed : ",result);
+    	if(result!=undefined) {
+		    this.getUid.emit(result);
+    	}
       this.dialogRef = null;
     });
   }
@@ -110,7 +113,7 @@ export class MapMyAreaComponent{
 	}
 	othersList=[];
 	addToOtherUser(x){
-		this.othersList.push({"latitude":x.latitude,"longitude":x.longitude,"name":x.name,"pic":x.pic,"uid":x.$key});
+		this.othersList.push({"latitude":x.latitude,"longitude":x.longitude,"name":x.name,"pic":x.pic,"uid":x.$key,"mobile":x.mobile});
 		//console.log(this.othersList);
 	}
 	compWithLat(){
@@ -215,16 +218,42 @@ export class MapMyAreaComponent{
 }
 @Component({
   selector: 'pizza-dialog',
-  templateUrl:'./dialog.component.html'
+  templateUrl:'./dialog.component.html',
+  providers:[TaskService]
 })
 export class PizzaDialog {
 	sUserD;
-  constructor(public dialogRef: MdDialogRef<PizzaDialog>) { 
+	add=true;
+	fetchedResult;
+  constructor(public dialogRef: MdDialogRef<PizzaDialog>,private af:AngularFire,private taskService:TaskService) { 
   		this.sUserD=sUser;
+  		af.auth.subscribe(user=>{
+  			if(user!=undefined) {
+  				af.database.list("accounts/"+user.auth.uid,{query:{
+  					orderByChild:"mobile",
+  					equalTo:this.sUserD.mobile
+  				}}).first().subscribe(data=>{
+  					if(data.length==0) {
+  						this.add=true;
+  					}else{
+  						data.map(x=>{
+  							this.fetchedResult=x;
+  						});
+  						this.add=false;
+  					}
+  				});	
+  			}
+  		});
   		//console.log("global",sUser);
   		//console.log("local",this.sUserD);
   }
+  closedia(){
+  	//console.log("fetched result : ",this.fetchedResult);
+  	this.taskService.removeTask(this.fetchedResult);
+  	this.dialogRef.close();
+  }
 }
+
 @Component({
   selector: 'visible-dialog',
   templateUrl:'./visible.component.html'
@@ -235,7 +264,7 @@ export class VisibilityDialog {
   		this.visible=visible;
   }
   toog(visibleChange){
-  	console.log("change : ",visibleChange);
+  	//console.log("change : ",visibleChange);
   	visible=visibleChange.checked;
   	this.visible=visibleChange.checked;
   }

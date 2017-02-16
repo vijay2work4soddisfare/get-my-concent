@@ -23,7 +23,7 @@ import { MapUpdateComponent } from './show-map/map-update/map-update.component';
     })
   ],
   declarations: [PreferenceComponent, FormQuestionComponent, FormComponent,DialogResultExampleDialog, ShowMapComponent, MapMyAreaComponent, MapUpdateComponent,PizzaDialog,VisibilityDialog ],
-  entryComponents:[DialogResultExampleDialog,PizzaDialog,VisibilityDialog ],
+  entryComponents:[DialogResultExampleDialog,PizzaDialog,VisibilityDialog,ShowMapComponent ],
   providers:[MdDialog,CrisisService]
 })
 export class PreferenceModule { }

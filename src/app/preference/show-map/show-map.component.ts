@@ -1,13 +1,17 @@
 import { Component,Input,Output,EventEmitter} from '@angular/core';
 import { Http } from '@angular/http';
 import { AngularFire, FirebaseObjectObservable} from 'angularfire2';
+import { TaskService } from '../task-service';
+import { MdDialog, MdDialogRef } from '@angular/material';
 @Component({
   selector: 'app-show-map',
   templateUrl: './show-map.component.html',
-  styleUrls: ['./show-map.component.css']
+  styleUrls: ['./show-map.component.css'],
+  providers:[TaskService]
 })
 export class ShowMapComponent{
   position=[];
+  color="warn";
   @Output() onClose =new  EventEmitter<boolean>();
   @Output() addFriend =new  EventEmitter<string>();
   uid;
@@ -29,7 +33,7 @@ export class ShowMapComponent{
       this.setposition(latitude,longitude);
     }
   }
-  constructor(private http:Http , private af:AngularFire){
+  constructor(public dialogRef: MdDialogRef<ShowMapComponent>,private http:Http , private af:AngularFire,private taskService:TaskService){
     this.af.auth.subscribe(auth=>{
       if(auth!=null && auth!=undefined) {
         this.uid=auth.uid
@@ -41,7 +45,6 @@ export class ShowMapComponent{
             if(value.exists()) {
               this.setposition(value.val().latitude,value.val().longitude);
             }else{
-          
                 if (navigator.geolocation) {
                   navigator.geolocation.getCurrentPosition((position)=>{
                     //console.log(position.coords);
@@ -80,16 +83,24 @@ export class ShowMapComponent{
         }
       }
     });
+    var i = 0;
+    var ii=setInterval(()=>{
+      if(this.color=="primary") { 
+        this.color="accent";
+      } else if(this.color=="accent") { 
+        this.color="warn";
+      } else if(this.color=="warn") { 
+        this.color="primary";
+      }
+      if(i==50) {
+        clearInterval(ii);
+      }
+    },600);
   }
   correct=true;
-  emtMobileNo(uid){
-    this.af.database.list("registeredUsers/",{query:{orderByChild:"uid",equalTo:uid}}).subscribe(dataList=>{
-      if(dataList.length!=0) {
-        dataList.map(item=>{
-          this.addFriend.emit(item.$key);
-        });
-      }
-    });
+  emtMobileNo(data){
+    this.taskService.setUid(this.uid);
+    this.taskService.createTask(data.name,data.mobile)
   }
   send($event){
     this.correct=false;

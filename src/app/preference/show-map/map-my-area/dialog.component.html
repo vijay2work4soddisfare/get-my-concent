@@ -3,6 +3,7 @@
       <md-card-title md-dialog-title>{{sUserD.name}}</md-card-title>
     </md-card-header>
 	  <md-dialog-actions align="end">
-	    <button (click)="dialogRef.close(sUserD.uid)" md-raised-button color="primary">Add as a partner</button>
+	    <button (click)="closedia()" md-raised-button color="warn" *ngIf="!add">Remove partner</button>
+	    <button (click)="dialogRef.close(sUserD)" md-raised-button color="primary" *ngIf="add">Add as a partner</button>
 	    <button md-raised-button color="accent" md-dialog-close>Close</button>
 	  </md-dialog-actions>

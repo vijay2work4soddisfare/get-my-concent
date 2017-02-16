@@ -9,23 +9,6 @@ import { QuestionService } from '../question.service';
   styleUrls:['task-form.css'],
   template: `
       <app-form [questions]="questions" (close)="submit($event)"></app-form>
-      <!--md-input
-        [(ngModel)]="title"
-        value="{{title}}"
-        (keyup.escape)="clearA()"
-        autofocus
-        placeholder="Partners Name"
-        required
-        type="text"></md-input>
-      <md-input
-        [(ngModel)]="mobile"
-        value="{{mobile}}"
-        (keyup.escape)="clearB()"
-        autofocus
-        placeholder="Partner's mobile"
-        required
-        type="tel"></md-input>
-        <button md-raised-button type="submit" (click)="submit()" color="primary"><md-icon>add</md-icon> Add</button-->
   `,
   providers:[QuestionService]
 })

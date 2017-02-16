@@ -7,33 +7,43 @@ import { Observable } from 'rxjs/Observable';
 import { TaskService } from '../services/task-service';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import { TaskFormComponent } from './task-form';
-
+import { AuthResolveService } from '../../auth-resolve.service';
 
 @Component({
   template: `
-    <div class="g-row">
-      <div class="g-col">
-        <button md-raised-button (click)="opendialog()">Add Partners</button>
-        <!--task-form (createTask)="taskService.createTask($event)"></task-form-->
-      </div>
+    <md-sidenav-container fullscreen>
+      <md-toolbar color="primary">
+        <span>Get My Consent</span>
+        <span class="emptySpace"></span>
+        <span>
+          <button md-raised-button color="accent" (click)="logout()" >Logout</button>
+        </span>
+      </md-toolbar>
+        <div class="g-row">
+          <div class="g-col">
+            <task-list
+              [filter]="filter | async"
+              [tasks]="taskService.visibleTasks$"
+              (remove)="taskService.removeTask($event)"
+              (update)="taskService.updateTask($event.task, $event.changes)"></task-list>
+          </div>
+          <div class="g-col">
+            <button md-raised-button (click)="opendialog()">Add Partners</button>
+          </div>
+        </div>
+    </md-sidenav-container>
 
-      <div class="g-col">
-        <task-list
-          [filter]="filter | async"
-          [tasks]="taskService.visibleTasks$"
-          (remove)="taskService.removeTask($event)"
-          (update)="taskService.updateTask($event.task, $event.changes)"></task-list>
-      </div>
-    </div>
-
-  `
+  `,
+  styles:[`.emptySpace{
+     flex:1 1 auto;
+    }`]
 })
 
 export class TasksComponent {
   filter: Observable<any>;
 
   dialogRef: MdDialogRef<TaskFormComponent>;
-  constructor(public route: ActivatedRoute, public taskService: TaskService,public dialog:MdDialog) {
+  constructor(private  auth:AuthResolveService,public route: ActivatedRoute, public taskService: TaskService,public dialog:MdDialog) {
     this.filter = route.params
       .pluck('status')
       .do((value: string) => taskService.filterTasks(value));
@@ -49,5 +59,8 @@ export class TasksComponent {
         }
       });
 
+  }
+  logout(){
+    this.auth.logout();
   }
 }
