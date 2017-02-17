@@ -1,14 +1,17 @@
 <md-card-subtitle align="start" style="margin-left:10%; ">
-  <label>Set your location </label><button style="margin-left:20px;" md-raised-button color="primary" (click)="openDialog()">Location</button>
+  <label>Set your location / Add partners </label><button style="margin-left:20px;" md-raised-button color="primary" (click)="openDialog()">Location</button>
   <!--app-show-map></app-show-map-->
 </md-card-subtitle>
 <div style="">
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div [formGroup]="form">
     <div *ngFor="let question of questions" class="form-row">
       <app-form-question [question]="question" [form]="form"></app-form-question>
     </div>
     <div class="form-row">
-      <button md-raised-button type="submit" [disabled]="!form.valid">Save</button>
+      <md-card-actions align="center">
+      <button md-raised-button type="submit" [disabled]="!form.valid"  (click)="onSubmit()">Save</button>
+      <button md-raised-button *ngIf="form.valid && user.condition" [disabled]="!form.valid" (click)="dataService.deleteAccount()" color="warn">Delete Account</button>
+      </md-card-actions>
     </div>
-  </form>
+  </div>
 </div>

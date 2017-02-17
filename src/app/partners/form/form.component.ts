@@ -28,5 +28,8 @@ export class FormComponent implements OnInit {
     this.close.emit(this.form.value);
     //this.router.navigate(['../','Partners'],{relativeTo:this.r});
   }
+  openMap(){
+    this.close.emit('map');
+  }
 
 }

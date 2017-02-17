@@ -4,6 +4,9 @@
 md-input {
 	width:80%;
 }
+md-input-container {
+	width:80%;
+}
 md-select{
 	width:80%;
 }

@@ -18,7 +18,7 @@ export class AnimateComponent implements OnInit{
 	list=[];
 	tempStore=[];
 	i=1;
-	limit=7;
+	limit=6;
 	completedAnim=false;
 	clearButton=false;
 	clearset=false;
@@ -28,8 +28,38 @@ export class AnimateComponent implements OnInit{
 	logged=false;
 	showVid=false;
 	back=false;
+	percentage=10;
+	calcPercentage(){
+		var countReports;
+		var countUsers;
+		this.af.database.list("accounts/",{query:{
+			orderByChild:"reported",
+			equalTo:true
+		}}).subscribe(dataR=>{
+			//console.log("reported count : ",dataR.length);
+			countReports=dataR.length;
+			this.af.database.list("accounts/",{query:{
+				orderByChild:"gender",
+				equalTo:"Female"
+			}}).subscribe(dataU=>{
+				//console.log("total female users : ",dataU.length);
+				if(dataU.length==0) {
+					countUsers=1;
+					this.persentageReturn(countReports,countUsers);
+				}else{
+					countUsers=dataU.length;
+					this.persentageReturn(countReports,countUsers);
+				}
+			});
+		});
+	}
+	persentageReturn(count,total){
+		this.percentage=(count/total)*100;
+		//console.log("percentage : ",this.percentage);
+	}
   constructor(private af:AngularFire) { 
   	//console.log("const");
+  	this.calcPercentage();
   	this.showVid=false;
 	this.back=false;
   	this.af.auth.subscribe(auth=>{
@@ -43,7 +73,6 @@ export class AnimateComponent implements OnInit{
 	this.tempStore[3]='Non-consentual sex is rape';
 	this.tempStore[4]='If she is asleep then it means no';
 	this.tempStore[5]='It is a man issue';
-	this.tempStore[6]="41-61% of Asian Women experience physical and sexual violence by spouse";
 	this.recurAdd();
   	setTimeout(()=>{
 		this.clearButton=true;
@@ -62,7 +91,7 @@ export class AnimateComponent implements OnInit{
 	});
   }
 	recurAdd(){
-		if(this.list.length<5 && this.i<=this.limit && this.tempStore[this.i-1]!=undefined) {
+		if(this.list.length<6 && this.i<=this.limit && this.tempStore[this.i-1]!=undefined && !this.skipped) {
 				this.list.push({"val":""+this.tempStore[this.i-1],"state":"in"});
 				this.i++;
 			setTimeout(()=>{
@@ -92,25 +121,27 @@ export class AnimateComponent implements OnInit{
 				},1010);
 				this.recurAdd();
 			}
+			if(this.skipped) {
+				this.exit();
+			}
 		}
 	}
+	skipped=false;
   clearAnim(){
   	this.clearButton=false;
+  	this.skipped=true;
   	this.recurDel(this.list.length);
   }
   exit(){
-	if(!this.logged) {
-  		this.onClose.emit(true);
+	if(!this.showVid) {
+		this.back=true;
+		this.showVid=true;
 	}else{
-		if(!this.showVid) {
-			this.back=true;
-			this.showVid=true;
-		}else{
-  			this.onClose.emit(true);
-		}
+		this.onClose.emit(true);
 	}
   }
   education(){
+  	this.skipped=false;
   	this.showVid=false;
 	this.pageNo=0;
   	this.i=1;

@@ -35,6 +35,7 @@ export class QuestionService {
         ],
         value:this.data.gender,
         required: true,
+        readonly:(this.data.gender=='')?false:true,
         order: 2
       }),
 

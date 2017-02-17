@@ -1,20 +1,37 @@
+<div *ngIf="showVid">
+	<div style="margin-top: 3%;margin-left: 10%;">
+		<md-card-title color="Primary"> <div style="font-family: 'Pacifico', serif;">  Marital Rape Data  </div></md-card-title>
+	</div>
+	<md-card class="outer">
+		<md-card-subtitle align="center"><h3>Marital rape reported by {{percentage}}% users</h3></md-card-subtitle>
+		<md-card-subtitle align="center">
+			<md-progress-bar mode="determinate" [value]="percentage">
+			</md-progress-bar>
+		</md-card-subtitle>
+	</md-card>
+</div>
+<div style="margin-top: 3%;margin-left: 10%;">
 	<div *ngIf="!showVid">
 		<md-card-title color="Primary"> <div style="font-family: 'Pacifico', serif;">  Marital Rape  </div></md-card-title>
-    	<md-card-subtitle color="Primary"> <div style="font-family: 'Pacifico', serif;"> It's Widespread</div></md-card-subtitle>
-	</div>
-<md-card-content align="center">
-	<div *ngFor="let item of list" style="margin-bottom: 1%;">
-		<app-list-item [show]="item" [clear]="cls"></app-list-item>
-	</div>
-	<div>
-		<button md-raised-button class="demo-button" color="warn" *ngIf="!completedAnim" (click)="clearAnim()" [disabled]="!clearButton">Next >> </button>
-		<button md-raised-button class="demo-button" color="primary" *ngIf="!(af.auth | async) && completedAnim && !back && !showVid" (click)="gotoConcent()" [disabled]="!gotoButton">Go to video >> </button>
-		<button md-raised-button class="demo-button" color="primary" *ngIf="(af.auth | async) && completedAnim && !showVid && !back" (click)="gotoConcent()" [disabled]="!gotoButton">Go to video >> </button>
+		<md-card-subtitle color="Primary"> <div style="font-family: 'Pacifico', serif;"> It's Widespread</div></md-card-subtitle>
 	</div>
 	<div *ngIf="showVid">
-		<md-card-title color="Primary"> <div style="font-family: 'Pacifico', serif;"> Learn about consent... </div></md-card-title>
-    	<md-card-subtitle color="Primary"> <div style="font-family: 'Pacifico', serif;"> Bad Women can accuse rape if consent is not recorded</div></md-card-subtitle>
-		<iframe class="vid" src="https://www.youtube.com/embed/Gp6alIALDHA" frameborder="0" allowfullscreen></iframe><br>
-		<button md-raised-button (click)="education()" color="primary">Back to education</button>
+		<md-card-title color="Primary" align="start"> <div style="font-family: 'Pacifico', serif;"> Learn about consent... </div></md-card-title>
+	    	<md-card-subtitle color="Primary" align="start"> <div style="font-family: 'Pacifico', serif;"> Bad Women can accuse rape if consent is not recorded</div></md-card-subtitle>
 	</div>
-</md-card-content>
+</div>
+<md-card class="contain">
+	<md-card-content align="center">
+		<div *ngFor="let item of list" style="margin-bottom: 1%;">
+			<app-list-item [show]="item" [clear]="cls"></app-list-item>
+		</div>
+		<div>
+			<button md-raised-button class="demo-button" color="warn" *ngIf="!completedAnim && clearButton && !skipped" (click)="clearAnim()" [disabled]="!clearButton">Skip >> </button>
+			<button md-raised-button class="demo-button" color="primary" *ngIf="completedAnim && !back && !showVid" (click)="gotoConcent()" [disabled]="!gotoButton">Go to video >> </button>
+		</div>
+		<div *ngIf="showVid" class="centered">
+			<iframe class="vid" src="https://www.youtube.com/embed/Gp6alIALDHA" frameborder="0" allowfullscreen></iframe><br>
+			<button md-raised-button (click)="education()" color="primary">Back to education</button>
+		</div>
+	</md-card-content>
+</md-card>

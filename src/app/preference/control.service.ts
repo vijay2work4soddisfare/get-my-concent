@@ -25,9 +25,9 @@ export class QuestionControlService {
     	if(question.patern!=undefined) {
     		val.push(Validators.pattern(question.patern));
     	}
-    	//console.log("val of ",question.label," : ",val);
+    	//console.log("val of question ",question.value);
       //group[question.key] = question.required ? new FormControl(question.value || '', Validators.required): new FormControl(question.value || '');
-      group[question.key] = question.required ? new FormControl(question.value || '', val): new FormControl(question.value || '');
+      group[question.key] = question.required ? new FormControl({value:question.value,disabled:(question.readonly)?true:false }, val): new FormControl(question.value || '');
     });
     return new FormGroup(group);
   }

@@ -2,10 +2,10 @@
 
   <md-card-content align="center" [ngSwitch]="question.controlType">
 
-    <md-input *ngSwitchCase="'textbox'" [formControlName]="question.key"
-            [id]="question.key" type="{{question.type}}" placeholder="{{question.label}}" maxlength="{{question.count}}" autocomplete="off">
+    <md-input-container *ngSwitchCase="'textbox'">
+      <input type="{{question.type}}" mdInput placeholder="{{question.label}}" [formControlName]="question.key"  [id]="question.key" maxlength="{{question.count}}" [readonly]="question.readonly" autocomplete="off">
             	<md-hint class="errorMessage" *ngIf="!isValid" align="end">{{question.label}} is invalid</md-hint>
-            </md-input>
+            </md-input-container>
 
     <md-select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key"  placeholder="{{question.label}}">
       <md-option *ngFor="let opt of question.options" [value]="opt.key" >{{opt.value}}</md-option>

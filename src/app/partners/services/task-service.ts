@@ -37,6 +37,27 @@ export class TaskService {
     this.visibleTasks$ = this.filter$
       .switchMap(filter => filter === null ? this.tasks$ : this.filteredTasks$);
   }
+  setUid(uid){
+    this.path = `/accounts/`+uid;
+    this.tasks$ = this.af.database.list(this.path, {query: {
+      orderByChild: 'status',
+      equalTo: 'partner'
+    }});
+
+    this.af.database.object(this.path).subscribe(data=>{
+      this.user$=data;
+    });
+
+    this.filteredTasks$ = this.af.database.list(this.path, {query: {
+      orderByChild: 'status',
+      equalTo: this.filter$
+    }});
+
+    this.visibleTasks$ = this.filter$
+      .switchMap(filter => filter === null ? this.tasks$ : this.filteredTasks$);
+
+  }
+
 
 
   filterTasks(filter: string): void {
@@ -71,7 +92,7 @@ export class TaskService {
             orderByChild: 'mobile',
             equalTo: mobile
         }}).first().subscribe(registeredUsers=>{
-          console.log("registerd user :",registeredUsers);
+          //console.log("registerd user :",registeredUsers);
           if(registeredUsers.length!=0){
             registeredUsers.map(x=>{
               this.af.database.list("accounts/"+x.$key).push(new Task(this.user$.name,this.user$.mobile));
@@ -115,7 +136,12 @@ export class TaskService {
       }
     });
   }
-
+  reportMR(){
+    this.af.database.object(this.path).update({"reported":true});
+  }
+  getReportStatus(){
+    return this.user$.reported;
+  }
   removeTask(task: ITask){
     this.changeRequest(task,{"status":"partner"});
     return this.tasks$.remove(task.$key);

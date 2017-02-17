@@ -1,16 +1,19 @@
-<div class="form-row">
-  <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
+<md-card-actions style="margin:auto;">
+  <button md-raised-button color="primary" style="margin-left: 26px;margin-bottom: 10px;" (click)="openMap()">Add partner from map</button>
+</md-card-actions>
+<fieldset style="border-width:3px 0px 0px 0px;">
+  <legend style="text-align:center;"> OR </legend>
+  <div class="form-row">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="off">
 
-    <div *ngFor="let question of questions" class="form-row">
-      <app-form-question [question]="question" [form]="form"></app-form-question>
-    </div>
+      <div *ngFor="let question of questions" class="form-row">
+        <app-form-question [question]="question" [form]="form"></app-form-question>
+      </div>
 
-    <div class="form-row">
-      <button md-raised-button type="submit" [disabled]="!form.valid">Save</button>
-    </div>
-  </form>
-
-  <div *ngIf="payLoad" class="form-row">
-    <strong>Saved the following values</strong><br>{{payLoad}}
+      <div class="form-row">
+        <button md-raised-button type="submit" [disabled]="!form.valid" color="primary" style="margin: 0px 5px;">Add</button>
+        <button md-raised-button md-dialog-close color="warn" style="margin: 0px 5px;">Cancel</button>
+      </div>
+    </form>
   </div>
-</div>
+</fieldset>

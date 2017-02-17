@@ -29,13 +29,17 @@ export class TaskFormComponent {
   }
 
   submit($event): void {
-    const title: string = $event.name.trim();
-    const mobile: string = $event.mobile.trim();
-    this.clearA();
-    this.clearB();
-    if (title.length) {
-      this.dialogRef.close({title,mobile});
-      //console.log("From dialog : ",{title,mobile});
+    if($event!='map') {
+      const title: string = $event.name.trim();
+      const mobile: string = $event.mobile.trim();
+      this.clearA();
+      this.clearB();
+      if (title.length) {
+        this.dialogRef.close({title,mobile});
+        //console.log("From dialog : ",{title,mobile});
+      }
+    }else{
+      this.dialogRef.close('map');
     }
   }
 }

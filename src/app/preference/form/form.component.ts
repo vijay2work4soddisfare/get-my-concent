@@ -18,7 +18,10 @@ export class FormComponent implements OnInit {
   @Input() questions: QuestionBase<any>[] = [];
   form: FormGroup;
   payLoad = '';
-  constructor(public dialog: MdDialog,private qcs: QuestionControlService,private dataService : DataResolveService) {  }
+  user;
+  constructor(public dialog: MdDialog,private qcs: QuestionControlService,private dataService : DataResolveService) { 
+      this.user=dataService.getUserData()
+   }
   openDialog() {
     this.dialogRef = this.dialog.open(ShowMapComponent, {
       disableClose: false

@@ -54,6 +54,33 @@ export class DataResolveService {
       }
     });
   }
+  deleteAccount(){
+    var uid=this.userData.uid;
+    var mobile=this.userData.mobile;
+    this.af.database.list("accounts/"+uid).first().subscribe(dataToDelete=>{
+      dataToDelete.map(x=>{//x is list of partners
+        this.af.database.list("accounts/",{query:{
+          orderByChild:"mobile",
+          equalTo:x.mobile
+        }}).subscribe(partner=>{//partner array object
+          partner.map(y=>{//partner data
+              this.af.database.list("accounts/"+y.$key,{query:{
+                orderByChild:"mobile",
+                equalTo:mobile
+              }}).subscribe(toDelete=>{
+                toDelete.map(z=>{
+                  this.af.database.object("accounts/"+y.$key+"/"+z.$key).remove();
+                });
+              });
+          });
+        });
+
+      });
+      this.af.database.object("accounts/"+uid).remove().then(()=>{
+        this.unSetUserData();
+      });
+    });
+  }
   unSetUserData(){
     this.userData={
       uid:'',

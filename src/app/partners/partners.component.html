@@ -1,3 +1,9 @@
-<p>
-  partners works!
-</p>
+<md-card-subtitle align="center"><h3>Marital rape reported by our users</h3></md-card-subtitle>
+	<md-card-title align="center">
+		<md-progress-bar mode="determinate" [value]="percentage">
+		</md-progress-bar>
+			<md-hint align="end">{{percentage}}% of our female users had experienced marital rape</md-hint>
+	</md-card-title>
+<md-dialog-actions align="end">
+	<button md-raised-button md-dialog-close>Ok</button>
+</md-dialog-actions>

@@ -13,6 +13,7 @@ import { TaskService } from './services/task-service';
 import { TasksComponent } from './components/tasks';
 import { ShowDialog } from './components/showDialog.component';
 
+import { AgmCoreModule } from 'angular2-google-maps/core';
 import { FormQuestionComponent } from './form-question/form-question.component';
 import { FormComponent } from './form/form.component';
 
@@ -35,7 +36,7 @@ import { FormComponent } from './form/form.component';
 	    TasksComponent,
 	    ShowDialog
 	],
-	entryComponents:[ShowDialog,TaskFormComponent],
+	entryComponents:[ShowDialog,TaskFormComponent,PartnersComponent],
   providers: [
     TaskService
   ]
